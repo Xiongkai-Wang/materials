@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--360浏览器优先以webkit内核解析-->
+
+
+    <title>首页</title>
+
+    <!--<link rel="shortcut icon" href="favicon.ico">-->
+    <link href="css/admin/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="css/admin/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <link href="css/admin/animate.css" rel="stylesheet">
+    <link href="css/admin/style.css?v=4.1.0" rel="stylesheet">
+
+    <!-- echarts JS -->
+    <script src="js/admin/media/echarts.js"></script>
+
+    <!-- 全局js -->
+    <script src="js/admin/jquery.min.js?v=2.1.4"></script>
+    <script src="js/admin/bootstrap.min.js?v=3.3.6"></script>
+    <script src="js/admin/plugins/layer/layer.min.js"></script>
+
+    <!-- 自定义js -->
+    <script src="js/admin/content.js"></script>
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content">
+    <input type="hidden" id="base" value="${basePath}"/>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row row-sm text-center">
+                        <div class="col-xs-10">
+                            <div class="panel padder-v item">
+                                <div class="h1 text-info font-thin">
+                                    <a href="/userPage" th:text="${usersNum}"></a>
+                                </div>
+                                <span class="text-muted text-xs">用户情况</span>
+                                <div class="top text-right w-full">
+                                    <i class="fa fa-caret-down text-warning m-r-sm"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row row-sm text-center">
+                        <div class="col-xs-10">
+                            <div class="panel padder-v item bg-info">
+                                <div class="font-thin h1">
+                                    <a href="/cifPage" th:text="${materialsNum}"></a>
+                                </div>
+                                <span class="text-muted text-xs">待审核上传文件</span>
+                                <div class="top text-right w-full">
+                                    <i class="fa fa-caret-down text-warning m-r-sm"></i>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="row row-sm text-center">
+                        <div class="col-xs-10">
+                            <div class="panel padder-v item bg-primary">
+                                <div class="font-thin h1">
+                                    <a href="/publicationPage" th:text="${publications.size()}"></a>
+                                </div>
+                                <span class="text-muted text-xs">待审核上传文献</span>
+                                <div class="top text-right w-full">
+                                    <i class="fa fa-caret-down text-warning m-r-sm"></i>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-9">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>任务列表</h5>
+                </div>
+                <div class="ibox-content">
+                    <ul class="todo-list m-t small-list ui-sortable" th:each="material : ${materials}">
+                        <!--待处理cif-->
+                        <li>
+                            <a href="#"
+                               class="check-link"><i class="fa fa-square-o"></i></a>
+                            <span th:text="'晶体名称为: ' + ${material.materialname}"></span>
+                            <small class="label label-primary" th:text="${material.time}"><i class="fa fa-clock-o"></i></small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script type="text/javascript">
+
+    </script>
+
+    <!--<script type="text/javascript">-->
+
+        <!--//近一周待处理事件/问题数呈现-->
+        <!--$(document).ready(-->
+            <!--function () {-->
+                <!--var categories = [];-->
+                <!--var eventCount = [];-->
+                <!--var problemCount = [];-->
+                <!--$.ajax({-->
+                    <!--type: "POST",-->
+                    <!--url: "eventAndProblem",-->
+                    <!--dataType: "json",-->
+                    <!--success: function (data) {-->
+                        <!--for (var i in data.time) {-->
+                            <!--categories[i] = data.time[i].time;-->
+                            <!--eventCount[i] = data.time[i].eventCount;-->
+                            <!--problemCount[i] = data.time[i].problemCount;-->
+                        <!--}-->
+                        <!--var myChart = echarts.init(document.getElementById("echarts-line-chart"));-->
+                        <!--option = {-->
+                            <!--title: {-->
+                                <!--// text: '近一周待处理事件/问题数',-->
+                                <!--//subtext: '纯属虚构'-->
+                            <!--},-->
+                            <!--tooltip: {-->
+                                <!--trigger: 'axis'-->
+                            <!--},-->
+                            <!--legend: {-->
+                                <!--data: ['待处理事件数', '待处理问题数']-->
+                            <!--},-->
+                            <!--toolbox: {-->
+                                <!--show: true,-->
+                                <!--feature: {-->
+                                    <!--dataZoom: {-->
+                                        <!--yAxisIndex: 'none'-->
+                                    <!--},-->
+                                    <!--dataView: {readOnly: false},-->
+                                    <!--magicType: {type: ['line', 'bar']},-->
+                                    <!--restore: {},-->
+                                    <!--saveAsImage: {}-->
+                                <!--}-->
+                            <!--},-->
+                            <!--xAxis: {-->
+                                <!--type: 'category',-->
+                                <!--boundaryGap: false,-->
+                                <!--data: categories-->
+                            <!--},-->
+                            <!--yAxis: {-->
+                                <!--type: 'value',-->
+                                <!--axisLabel: {-->
+                                    <!--formatter: '{value}'-->
+                                <!--}-->
+                            <!--},-->
+                            <!--series: [-->
+                                <!--{-->
+                                    <!--name: '待处理事件数',-->
+                                    <!--type: 'line',-->
+                                    <!--data: eventCount,-->
+                                    <!--markPoint: {-->
+                                        <!--data: [-->
+                                            <!--{type: 'max', name: '最大值'},-->
+                                            <!--{type: 'min', name: '最小值'}-->
+                                        <!--]-->
+                                    <!--},-->
+                                    <!--markLine: {-->
+                                        <!--data: [-->
+                                            <!--{type: 'average', name: '平均值'}-->
+                                        <!--]-->
+                                    <!--}-->
+                                <!--},-->
+                                <!--{-->
+                                    <!--name: '待处理问题数',-->
+                                    <!--type: 'line',-->
+                                    <!--data: problemCount,-->
+                                    <!--markPoint: {-->
+                                        <!--data: [-->
+                                            <!--{name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}-->
+                                        <!--]-->
+                                    <!--},-->
+                                    <!--markLine: {-->
+                                        <!--data: [-->
+                                            <!--{type: 'average', name: '平均值'},-->
+                                            <!--[{-->
+                                                <!--symbol: 'none',-->
+                                                <!--x: '90%',-->
+                                                <!--yAxis: 'max'-->
+                                            <!--}, {-->
+                                                <!--symbol: 'circle',-->
+                                                <!--label: {-->
+                                                    <!--normal: {-->
+                                                        <!--position: 'start',-->
+                                                        <!--formatter: '最大值'-->
+                                                    <!--}-->
+                                                <!--},-->
+                                                <!--type: 'max',-->
+                                                <!--name: '最高点'-->
+                                            <!--}]-->
+                                        <!--]-->
+                                    <!--}-->
+                                <!--}-->
+                            <!--]-->
+                        <!--};-->
+
+                        <!--myChart.setOption(option);-->
+                    <!--}-->
+                <!--});-->
+            <!--})-->
+
+    <!--</script>-->
+
+
+
+
+
+</body>
+
+</html>

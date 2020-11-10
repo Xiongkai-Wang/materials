@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>上传文献</title>
+
+        <script src="http://cdn.static.runoob.com/libs/jquery/1.11.0/jquery.min.js"></script>
+        <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <!--    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+        <link rel="stylesheet" type="text/css" href="stylesheets/css/animate.b59dfce2ff0e.css">
+        <link rel="stylesheet" href='stylesheets/less/compiled/nucleus.5db1710fde48.css' charset="utf-8">
+        <link rel="stylesheet" href='stylesheets/less/compiled/app.12ad2f516774.css' charset="utf-8">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700" rel="stylesheet">
+        <script src="components/requirejs/require.a0fb07562cea.js" data-main="js/dist/config.fa1f1c266ba8.js"></script>
+
+
+        <meta charset="utf-8">
+        <style type="text/css">
+
+            a:link,
+            a:hover,
+            a:visited,
+            a:active {
+                color: #fff;
+                text-decoration: none;
+            }
+
+            body {
+                height: 100%;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+
+                background: #fff;
+            }
+
+            .card-holder {
+                position: fixed;
+                width: 0px;
+                overflow: visible;
+            }
+
+            .card-wrapper {
+                display: inline-block;
+                float: right;
+                clear: both;
+            }
+
+            .card {
+                position: relative;
+                left: 32px;
+                padding: 16px 32px 16px 64px;
+                margin: 8px;
+                x-box-shadow: 0 0 8px 0px rgba(0, 0, 0, 0.5);
+                box-shadow: 8px 0 8px -8px rgba(0, 0, 0, 0.5);
+                background: #fff;
+                transition: all 0.3s ease-in-out 0.1s;
+            }
+
+            .card:hover {
+                position: relative;
+                left: 100%;
+                margin-left: -32px;
+                box-shadow:
+                        0 -8px 8px -8px rgba(0, 0, 0, 0.5),
+                        0 8px 8px -8px rgba(0, 0, 0, 0.5);
+                transition: all 0.3s ease-in-out;
+            }
+
+            .card-content {
+                display: inline-block;
+                color: #fff;
+                font-family: 'Droid Sans', sans-serif;
+                font-size: 16px;
+                font-weight: bold;
+                white-space: nowrap;
+            }
+
+            .bg-01 { background: #539770; }
+            .bg-02 { background: #4B7D74; }
+            .bg-03 { background: #8DC2BC; }
+            .bg-04 { background: #EDD6B4; }
+            .bg-05 { background: #BE7467; }
+            .bg-06 { background: #E2AE63; }
+
+        </style>
+    </head>
+<body>
+
+<header>
+    <div th:replace="foreWeb/index1::nav"></div>
+</header>
+<div class="row">
+<div class="span2"></div>
+<div class="span4">
+<h1 style="color: #DAA520; margin-top: 100px;">上传文献端口：</h1>
+<br/>
+<form action="/uploadP" class="form-login" method="post" enctype="multipart/form-data">
+    <p>请输入文献名称:</p>
+    <input type="text" id="fileName" name="fileName" />
+    <p>请输入文献作者:</p>
+    <input type="text" id="userName" name="userName" />
+    <p>请输入文献摘要:</p>
+    <input type="text" id="abstractText" name="abstractText" />
+    <p>请输入文献标签:</p>
+    <input type="text" id="type" name="type" />
+    <p>请输入文献DIO:</p>
+    <input type="text" id="DIO" name="DIO" />
+    <p>请输入文献DIO网址:</p>
+    <input type="text" id="adress" name="adress" />
+    <br>
+    <button type="button" class="btn btn-success save" style="margin-left:10px;"  onclick="addToBlacklist()">保存</button>
+</form>
+</div>
+<div class="span2"></div>
+<div class="span8">
+        <br>
+        <br>
+        <br>
+    <br>
+    <br>
+        <img th:src="@{~/kunmingligong2.png}"/>
+</div>
+</div>
+
+<script>
+    function addToBlacklist() {
+        var fileName = document.getElementById("fileName");
+        var userName = document.getElementById("userName");
+        var abstractText = document.getElementById("abstractText");
+        var type = document.getElementById("type");
+        var DIO = document.getElementById("DIO");
+        var adress = document.getElementById("adress");
+        alert(fileName.value);
+        if (confirm("确认上传文献？")) {
+            $.ajax({
+                type: "POST",
+                url: "/uploadP",
+                data: {
+                    "fileName": fileName.value,
+                    "userName": userName.value,
+                    "abstractText": abstractText.value,
+                    "type": type.value,
+                    "DIO": DIO.value,
+                    "adress": adress.value
+                },
+                dataType: "json",
+                success: function (data) {
+                    alert("文献已上传！");
+                    window.location.reload();
+                }
+            });
+        } else {
+            return
+        }
+        return true;
+    }
+</script>
+
+</body>
+</html>

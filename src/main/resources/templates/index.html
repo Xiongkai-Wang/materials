@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.11.0/jquery.min.js"></script>
+    <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.2.1/echarts.js"></script>
+</head>
+
+<body>
+<nav class="navbar navbar-default" role="navigation" th:fragment="nav">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/index">稀贵金属材料基因组数据库</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav navbar-right">
+                <li class=""><a href="/index">首页</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        应用
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/searchPage?name=">Crystal Structure</a></li>
+                        <li><a href="/electron">Electronic Structure</a></li>
+                        <li><a href="#">Phonon Dispersions</a></li>
+                        <li><a href="#">Thermodynamics</a></li>
+                        <li><a href="#">Publications</a></li>
+                    </ul>
+                </li>
+                <li><a href="/paper">相关文献</a></li>
+                <li><a href="/upload">上传</a></li>
+                <li><a href="/login">登录</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div th:replace="search::body"></div>
+
+<div class="container">
+    <br/>
+    <br/><br/><br/><br/><br/><br/><br/>
+    <div class="row">
+        <div class="col-lg-4">
+            <button type="button" class="btn btn-info btn-lg" onclick="location.href='/searchPage?name='">Crystal
+                Structure<br>晶体结构模块
+            </button>
+        </div>
+        <div class="col-lg-4">
+            <button type="button" class="btn btn-info btn-lg" onclick="location.href='/website/electron'">Electronic
+                Structures<br>晶体电子结构模块
+            </button>
+        </div>
+        <div class="col-lg-4">
+            <button type="button" class="btn btn-info btn-lg">Phonon Dispersions<br>晶体声子谱模块</button>
+        </div>
+    </div>
+    <br/>
+    <br/><br/><br/><br/><br/><br/><br/>
+    <div class="row">
+        <div class="col-lg-4 col-lg-offset-2">
+            <button type="button" class="btn btn-info btn-lg">Thermodynamics<br>晶体热力学性质模块</button>
+        </div>
+        <div class="col-lg-4">
+            <button type="button" class="btn btn-info btn-lg">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Elasticity&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>力学性质模块
+            </button>
+        </div>
+
+    </div>
+</div>
+<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+<div id="main" style="width: 600px;height:400px;">
+
+</div>
+<!-- 能级态密度分布图 -->
+<div id = "main1" style = "width: 600px;height:400px;">
+
+</div>
+<!-- 能带分布图 -->
+<div id = "main2" style = "width: 600px;height:400px;">
+</div>
+<!--&lt;!&ndash; 测试 &ndash;&gt;-->
+<!--<div id = "mainTest" style = "width: 600px;height:400px;">-->
+<!--</div>-->
+</body>
+<script th:inline="javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+    var dataZong = [[${dataZong}]];
+    // console.log("数据：" + dataList);
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: '总态密度图'
+        },
+        tooltip: {},
+        // legend: {
+        //     data:['销量']
+        // },
+        xAxis: {},
+        yAxis: {},
+        dataZoom: [
+            {
+                type: 'inside',
+                xAxisIndex: [0],
+                start: 0,
+                end: 100
+            },
+            {
+                type: 'inside',
+                yAxisIndex: [0],
+                start: 0,
+                end: 100
+            }
+        ],
+        series: [{
+            type: 'line',
+            smooth: true,
+            data: dataZong
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+<script th:inline="javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main1'));
+    var data_fen_s = [[${data_fen_s}]];
+    var data_fen_p = [[${data_fen_p}]];
+    var data_fen_d = [[${data_fen_d}]];
+    // console.log("数据：" + data_fen_s);
+    // console.log("数据：" + data_fen_p);
+    // console.log("数据：" + data_fen_d);
+    // 指定图表的配置项和数据
+    var option_fen = {
+        title: {
+            text: '分态密度图'
+        },
+        tooltip: {},
+        legend: {
+            data:['s', 'p', 'd']
+        },
+        xAxis: {},
+        yAxis: {},
+        dataZoom: [
+            {
+                type: 'inside',
+                xAxisIndex: [0],
+                start: 0,
+                end: 100
+            },
+            {
+                type: 'inside',
+                yAxisIndex: [0],
+                start: 0,
+                end: 100
+            }
+        ],
+        series: [
+            {
+                name:'s',
+                type: 'line',
+                smooth: true,
+                data: data_fen_s
+            },
+            {
+                name:'p',
+                type: 'line',
+                smooth: true,
+                data: data_fen_p
+            },
+            {
+                name:'d',
+                type: 'line',
+                smooth: true,
+                data: data_fen_d
+            }
+        ]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option_fen);
+</script>
+<script th:inline="javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main2'));
+    var dataList = [[${data_band}]];
+    console.log("能带数据：" + dataList);
+    console.log("能带数据长度：" + dataList.length);
+    var seriesData = [];
+    for (var i = 0; i < dataList.length; i++) {
+        var obj = new Object();
+        obj.type = 'line';
+        obj.data = dataList[i];
+        console.log("能带数据：" + dataList[i]);
+        seriesData[i] = obj;
+    }
+    // 指定图表的配置项和数据
+    var option_band = {
+        title: {
+            text: '总态密度图'
+        },
+        tooltip: {},
+        xAxis: {},
+        yAxis: {},
+        dataZoom: [
+            {
+                type: 'inside',
+                xAxisIndex: [0],
+                start: 0,
+                end: 100
+            },
+            {
+                type: 'inside',
+                yAxisIndex: [0],
+                start: 0,
+                end: 100
+            }
+        ],
+        series: seriesData
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option_band);
+</script>
+<!--<script th:inline="javascript">-->
+<!--// 基于准备好的dom，初始化echarts实例-->
+<!--var myChart1 = echarts.init(document.getElementById('mainTest'));-->
+<!--var res = [[${res}]];-->
+<!--console.log("res：" + res);-->
+<!--console.log("reslength：" + res.length);-->
+<!--console.log("type：" + typeof(res));-->
+<!--var seriesData = [];-->
+<!--for (var i = 0; i < res.length; i++) {-->
+<!--var obj = new Object();-->
+<!--obj.type = 'line';-->
+<!--obj.data = res[i];-->
+<!--seriesData[i] = obj;-->
+<!--}-->
+<!--// 指定图表的配置项和数据-->
+<!--var option_test = {-->
+<!--title: {-->
+<!--text: '总态密度图'-->
+<!--},-->
+<!--tooltip: {},-->
+<!--xAxis: {},-->
+<!--yAxis: {},-->
+<!--dataZoom: [-->
+<!--{-->
+<!--type: 'inside',-->
+<!--xAxisIndex: [0],-->
+<!--start: 0,-->
+<!--end: 100-->
+<!--},-->
+<!--{-->
+<!--type: 'inside',-->
+<!--yAxisIndex: [0],-->
+<!--start: 0,-->
+<!--end: 100-->
+<!--}-->
+<!--],-->
+
+<!--series: seriesData-->
+
+<!--//     [-->
+<!--//-->
+<!--//     {-->
+<!--//         "type":"line",-->
+<!--//         "data":[-->
+<!--//             [1,1],[2,2],[3,3],[4,5]-->
+<!--//         ]-->
+<!--//     },-->
+<!--//     {-->
+<!--//         type:"line",-->
+<!--//         data:[-->
+<!--//             [1,0],[2,0],[3,1],[4,2]-->
+<!--//         ]-->
+<!--//     }-->
+<!--// ]-->
+
+<!--};-->
+
+<!--// 使用刚指定的配置项和数据显示图表。-->
+<!--myChart1.setOption(option_test);-->
+<!--</script>-->
+<script>
+    // $.backstretch("/img/timg.jpg", {speed: 0});
+</script>
+
+</html>
