@@ -1,21 +1,24 @@
 package com.xjtu.materials.test;
 
+import com.xjtu.materials.pojo.ThemoParam;
+import com.xjtu.materials.service.ThermoService;
+import com.xjtu.materials.serviceImpl.ThermoServiceImpl;
 import org.python.core.Py;
 import org.python.core.PySystemState;
 import org.python.util.PythonInterpreter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class Test1 {
-    public static void main(String[] args) {
-        PythonInterpreter interpreter = new PythonInterpreter();
-        PySystemState sys = Py.getSystemState();
-        interpreter.exec("import sys");
-        interpreter.exec("print sys.path");
-        interpreter.exec("path = \"C:\\ProgramData\\Anaconda3\\Lib\\site-packages\"");
-        interpreter.exec("sys.path.append(path)");
-        interpreter.exec("path = \"C:\\ProgramData\\Anaconda3\\Lib\"");
-        interpreter.exec("sys.path.append(path)");
-        interpreter.exec("print sys.path");
 
-        interpreter.execfile("F:\\workspace\\python\\matgen\\test1.py");
+
+    private ThemoParam themoParam = new ThemoParam();
+
+
+    public  void test() {
+        String temp = "name.txt";
+        ThermoService service = new ThermoServiceImpl(themoParam);
+        service.run(temp);
+
+
     }
 }

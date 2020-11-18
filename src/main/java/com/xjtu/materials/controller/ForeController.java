@@ -1,9 +1,11 @@
 package com.xjtu.materials.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.xjtu.materials.factory.ThermoFactory;
 import com.xjtu.materials.mapper.UpLoadMaterialMapper;
 import com.xjtu.materials.pojo.*;
 import com.xjtu.materials.service.*;
+import com.xjtu.materials.serviceImpl.ThermoServiceImpl;
 import com.xjtu.materials.util.FileUtil;
 import com.xjtu.materials.util.ReadFromFile;
 import org.python.antlr.ast.Str;
@@ -11,10 +13,7 @@ import org.python.apache.commons.compress.utils.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -315,6 +314,7 @@ public class ForeController {
         return "foreWeb/uploadFile";
     }
 
+
     /**
      * @Description 上传cif
      * @Auther HL
@@ -389,6 +389,8 @@ public class ForeController {
 
         return "foreWeb/uploadFileSuccess";
     }
+
+
 
     /**
      * @Description 进入下载页面
@@ -475,7 +477,19 @@ public class ForeController {
      * @date 1:20 2019/3/26
      * @return java.lang.String
      */
+    @RequestMapping("/themodynamic")
+    public String themodynamic(){
+        return "themodynamic";
+    }
 
+
+    @ResponseBody
+    @RequestMapping(value =  "/themo" ,method= RequestMethod.POST)
+    public String themo(ThemoParam themoParam){
+        ThermoService thermoService =ThermoFactory.getThermoService(themoParam);
+        thermoService.run("answer.txt");
+        return "success";
+    }
     @RequestMapping("/crystalStructure1")
     public ModelAndView crystalStructure1(@RequestParam(value = "id") String id,@RequestParam(required = false,value = "type",defaultValue = "PBE")String CalType) {
         //文件是否存在标记，第一个对应电子结构，第二个对应热力学，1存在，0不存在

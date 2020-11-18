@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form  method="POST" action="/themo">
+
+        <div>
+            <input name="frames" id="frames" type="text" placeholder="frames">
+        </div>
+        <div>
+            <input name="species" id="species" type="text" placeholder="species">
+        </div>
+        <div>
+            <input name="Gibbs" id="Gibbs" type="text" placeholder="Gibbs">
+        </div>
+        <div>
+            <input name="N" id="N" type="text" placeholder="N">
+        </div>
+        <div>
+            <input name="normaldos" id="normaldos" type="text" placeholder="normaldos">
+        </div>
+        <div>
+            <input name="formlua" id="formlua" type="text" placeholder="formlua">
+        </div>
+        <div>
+            <input name="bare" id="bare" type="text" placeholder="bare">
+        </div>
+        <div>
+            <input name="Tmin" id="Tmin" type="text" placeholder="Tmin">
+        </div>
+        <div>
+            <input name="Tmax" id="Tmax" type="text" placeholder="Tmax">
+        </div>
+        <div>
+            <input name="step" id="step" type="text" placeholder="step">
+        </div>
+        <div>
+            <input name="M" id="M" type="text" placeholder="M">
+        </div>
+        <div>
+            <input name="Poisson" id="Poisson" type="text" placeholder="Poisson">
+        </div>
+        <div>
+            <input name="B0" id="B0" type="text" placeholder="B0">
+        </div>
+        <div>
+            <input name="mass" id="mass" type="text" placeholder="mass">
+        </div>
+        <div>
+            <input name="num" id="num" type="text" placeholder="num">
+        </div>
+        <div>
+            <input type="submit" value="提交" onclick="transferParam()">
+        </div>
+    </form>
+</body>
+<script>
+    function transferParam(){
+        var frames = $("#frames").val()
+        var species = $("#species").val()
+        var Gibbs = $("#Gibbs").val()
+        var N = $("#N").val()
+        var normaldos = $("#normaldos").val()
+        var formlua = $("#formlua").val()
+        var bare = $("#bare").val()
+        var Tmin = $("#Tmin").val()
+        var Tmax = $("#Tmax").val()
+        var step = $("#step").val()
+        var M = $("#M").val()
+        var Poisson = $("#Poisson").val()
+        var B0 = $("#B0").val()
+        var mass = $("#mass").val()
+        var num = $("#num").val()
+
+        $.ajax(
+            {
+                url: '/themo',
+                type: 'POST',
+                data: {
+                    'frames':frames,
+                    'species':species,
+                    'Gibbs':Gibbs,
+                    'N':N,
+                    'normaldos':normaldos,
+                    'formlua':formlua,
+                    'bare':bare,
+                    'Tmin':Tmin,
+                    'Tmax':Tmax,
+                    'step':step,
+                    'M':M,
+                    'Poisson':Poisson,
+                    'B0':B0,
+                    'mass':mass,
+                    'num':num
+                },
+                contentType:'application/json;charset=utf-8',
+                success : function(data) {
+                    /**重点：前台接收到返回值，直接处理就行*/
+                    alert(data);
+                }
+            }
+    )
+
+    }
+
+
+</script>
+</html>
