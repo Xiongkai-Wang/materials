@@ -121,6 +121,13 @@
             <scope>compile</scope>
         </dependency>
 
+        <!-- 导入jna 2021.03.16 wxk-->
+        <!-- <dependency>
+            <groupId>com.sun.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>3.5.1</version>
+        </dependency> -->
+
     </dependencies>
 
     <build>

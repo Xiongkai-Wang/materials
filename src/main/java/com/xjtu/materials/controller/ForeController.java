@@ -71,7 +71,6 @@ public class ForeController {
     @RequestMapping("/searchPage1")
     public ModelAndView searchPage1(String name, HttpServletRequest request, HttpSession session) {
         ModelAndView mv = new ModelAndView("foreWeb/searchPage");
-
         String[] a = name.split("[^a-zA-Z]+");
         List<UpLoadMaterial> Materials = searchService.SelectByName(a);
         //需要的文件是否存在
@@ -471,34 +470,160 @@ public class ForeController {
         return mv;
     }
 
+
+    @RequestMapping("/themodynamic")
+    public String themodynamic(){
+        return "themodynamic";
+    }
+    /**
+     * @Description 热力学计算
+     * @Auther YZB
+     * @date 1:20 2020/11/11
+     * @return java.lang.String
+     */
+    @ResponseBody
+    @RequestMapping(value =  "/themo" ,method= RequestMethod.POST)
+    public String inParam(ThemoParam themoParam){
+        System.out.println(themoParam.toString());
+        if(themoParam.getNum().split(" ").length==themoParam.getSpecies()&&
+                themoParam.getMass().split(" ").length==themoParam.getSpecies()) {
+            ThermoService thermoService = ThermoFactory.getThermoService(themoParam);
+            thermoService.run("answer.txt");
+            return "success";
+        }
+        return "wrong";
+    }
     /**
      * @Description 晶体结构
      * @Auther HL
      * @date 1:20 2019/3/26
      * @return java.lang.String
      */
-    @RequestMapping("/themodynamic")
-    public String themodynamic(){
-        return "themodynamic";
-    }
-
-
-    @ResponseBody
-    @RequestMapping(value =  "/themo" ,method= RequestMethod.POST)
-    public String themo(ThemoParam themoParam){
-        ThermoService thermoService =ThermoFactory.getThermoService(themoParam);
-        thermoService.run("answer.txt");
-        return "success";
-    }
     @RequestMapping("/crystalStructure1")
     public ModelAndView crystalStructure1(@RequestParam(value = "id") String id,@RequestParam(required = false,value = "type",defaultValue = "PBE")String CalType) {
+        //文件是否存在标记，第一个对应电子结构，第二个对应热力学，1存在，0不存在
+        int[] isExist = new int[4];
+        ModelAndView mv = new ModelAndView("/crystalStructure1");
+        // 晶体结构部分
+        System.out.println(id);
+        String materialName = upLoadMaterialMapper.selectByPrimaryKey(id).getMaterialname();
+        System.out.println(materialName);
+        String path = "D:\\data\\"+materialName+"\\"+CalType+"\\crystal structure\\"+materialName+".cif";
+
+        List<String[]> stringOfFile = ReadFromFile.readFileByLines(path);
+        String[] para = new String[6];
+        for (int i = 0; i < stringOfFile.size(); i++) {
+            if (stringOfFile.get(i)[0].equals("_cell_length_a")) {
+                for (int j = 0; j < 6; j++) {
+                    para[j] = stringOfFile.get(i + j)[1];
+                }
+            }
+        }
+        System.out.println("-------------------------------------------------------------------------------------------------------------------------------------");
+        //新建3*3的晶体矩阵
+        float[][] juzhen= new float[3][3];
+        juzhen[0][0] = (float) Math.abs(Float.parseFloat(para[0]));
+        juzhen[0][1] = (float) Math.sqrt(Double.parseDouble(para[0])*Double.parseDouble(para[1])* Math.cos(Double.parseDouble(para[5])));
+        juzhen[0][2] = (float) Math.sqrt(Double.parseDouble(para[0])*Double.parseDouble(para[2])* Math.cos(Double.parseDouble(para[4])));
+
+        juzhen[1][0] = juzhen[0][1];
+        juzhen[1][1] = (float) Math.abs(Float.parseFloat(para[1]));
+        juzhen[1][2] =  (float) Math.sqrt(Double.parseDouble(para[1])*Double.parseDouble(para[2])* Math.cos(Double.parseDouble(para[3])));
+
+        juzhen[2][0] = juzhen[0][2];
+        juzhen[2][1] = juzhen[1][2];
+        juzhen[2][2] = (float) Math.abs(Float.parseFloat(para[2]));
+
+        for (int i=0; i<3; i++){
+            for (int j=0; j<3; j++){
+                if (Float.isNaN(juzhen[i][j])){
+                    juzhen[i][j] = 0;
+                }
+            }
+        }
+
+        // 电子结构部分
+        //此处更新路径
+        String Path = "D:\\data\\"+materialName+"\\"+CalType+"\\electronic properties\\"+materialName+" Band Structure.csv";
+        // 能带密度图
+        // 文件不存在则送标记至前端
+        File file1 = new File(Path);
+        List<float[][]> data_band = new ArrayList<>();
+        if (file1.exists()) {
+            data_band = chartService.getBandData(Path);
+            isExist[0] = 1;
+        } else {
+            data_band = new ArrayList<>();
+        }
+
+
+        // 总态密度
+        String PathZong = "D:\\data\\"+materialName+"\\"+CalType+"\\electronic properties\\"+materialName+" DOS.csv";
+        // PDOS
+        String pathPDOS = "D:\\data\\"+materialName+"\\"+CalType+"\\electronic properties\\"+materialName+" PDOS.csv";
+        // 热力学部分
+        // PDOS
+        String pathElas = "D:\\data\\"+materialName+"\\"+CalType+"\\mechanical property\\"+materialName+" Elastic Constants.txt";
+
+
+        // 文件不存在则送标记至前端
+
+        float[][] dataZong;
+        List<float[][]> dataPDOS;
+        List<float[][]> mechData;
+        File file2 = new File(PathZong);
+        if (file2.exists()) {
+            dataZong = chartService.getZongData(PathZong);
+            isExist[1] = 1;
+        } else {
+            dataZong = new float[10][];
+        }
+        File file3 = new File(pathPDOS);
+        if (file3.exists()) {
+            dataPDOS = chartService.getFenData(pathPDOS);
+            isExist[2] = 1;
+        } else {
+            dataPDOS = new ArrayList<>();
+            dataPDOS.add(new float[10][]);
+            dataPDOS.add(new float[10][]);
+            dataPDOS.add(new float[10][]);
+        }
+        File file4 = new File(pathElas);
+        if (file4.exists()) {
+            mechData = chartService.getMechData(pathElas);
+            isExist[3] = 1;
+        } else {
+            mechData = new ArrayList<>();
+            mechData.add(new float[100][2]);
+            mechData.add(new float[100][2]);
+            mechData.add(new float[100][2]);
+            mechData.add(new float[100][2]);
+        }
+
+        mv.addObject("materialName", materialName);
+        mv.addObject("para", para);
+        mv.addObject("data_band", data_band);
+        mv.addObject("dataZong", dataZong);
+        mv.addObject("dataPDOS", dataPDOS);
+        mv.addObject("mechData", mechData);
+        mv.addObject("isExist", isExist);
+        mv.addObject("juzhen", juzhen);
+        mv.addObject("id",id);
+        mv.addObject("type",CalType);
+        return mv;
+    }
+
+    @RequestMapping("/crystalStructure01")
+    public ModelAndView crystalStructure01(@RequestParam(value = "id") String id,@RequestParam(required = false,value = "type",defaultValue = "PBE")String CalType) {
         //文件是否存在标记，第一个对应电子结构，第二个对应热力学，1存在，0不存在
         System.out.println("type= " + CalType);
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         int[] isExist = new int[4];
         ModelAndView mv = new ModelAndView("/crystalStructure1");
         // 晶体结构部分
-        String materialName = upLoadMaterialMapper.selectByPrimaryKey(id).getMaterialname();
+        System.out.println(id);
+        String materialName = id; //upLoadMaterialMapper.selectByPrimaryKey(id).getMaterialname();
+        System.out.println(materialName);
         String path = "D:\\data\\"+materialName+"\\"+CalType+"\\crystal structure\\"+materialName+".cif";
 
         List<String[]> stringOfFile = ReadFromFile.readFileByLines(path);
@@ -731,10 +856,11 @@ public class ForeController {
     public ModelAndView elasticity(@RequestParam(value = "id") String id,@RequestParam(value = "type",required = false,defaultValue = "PBE")String CalType) {
         ModelAndView mv = new ModelAndView("/elasticity");
 
-        String materialName = upLoadMaterialMapper.selectByPrimaryKey(id).getMaterialname();
+        String materialName = id;//upLoadMaterialMapper.selectByPrimaryKey(id).getMaterialname();
 
         // PDOS
-        String pathElas = "D:\\data\\"+materialName+"\\"+CalType+"\\mechanical property\\"+materialName+" Elastic Constants.txt";
+        //String pathElas = "D:\\data\\"+materialName+"\\"+CalType+"\\mechanical property\\"+materialName+" Elastic Constants.txt";
+        String pathElas = "D:\\data\\"+materialName+"\\"+CalType+"\\mechanical property\\"+"Elastic Constants.txt";
         List<float[][]> mechData = chartService.getMechData(pathElas);
 
         mv.addObject("materialName", materialName);
@@ -744,6 +870,43 @@ public class ForeController {
         return mv;
     }
 
+    @RequestMapping("/elasticityIndex")
+    public ModelAndView elasticityIndex(@RequestParam(value = "id") String id,@RequestParam(value = "type",required = false,defaultValue = "PBE")String CalType) {
+        ModelAndView mv = new ModelAndView("/elasticity");
+
+        String materialName = upLoadMaterialMapper.selectByPrimaryKey(id).getMaterialname();
+
+        // PDOS
+        //String pathElas = "D:\\data\\"+materialName+"\\"+CalType+"\\mechanical property\\"+materialName+"Elastic Constants.txt";
+        String pathElas = "D:\\data\\"+materialName+"\\"+CalType+"\\mechanical property\\"+"Elastic Constants.txt";
+        List<float[][]> mechData = chartService.getMechData(pathElas);
+
+        mv.addObject("materialName", materialName);
+        mv.addObject("mechData", mechData);
+        mv.addObject("id",id);
+        mv.addObject("type",CalType);
+        return mv;
+    }
+
+    /**
+     * @Description Crystal Structure初始页面 & TricliniCrystal 实现
+     * @Auther wxk
+     * @date 1:20 2021/03/12
+     * @return java.lang.String
+     */
+    @RequestMapping("/crystalStructure")
+    public String crystalStructure() {
+        return "/crystalStructure";
+    }
+
+    @RequestMapping("/crystalStructure2")
+    public String TricliniCrystal(@RequestParam(value = "id",required = false,defaultValue = "C:\\Users\\Xiongkai\\Desktop\\Sij.txt") String id){
+        // String str = new String("C:\\Users\\Xiongkai\\Desktop\\Sij.txt");
+        String str = id;
+        TricliniCrystalGeneralcase.JNATestDll.instanceDll.triclinic_crystal_generalcase(str);
+
+        return "/crystalStucture2";
+    }
     /**
      * @Description 能带结构图
      * @Auther HL

@@ -17,5 +17,4 @@ public interface ChartService {
     List<float[][]> getMechData(String address);
     // phonon Dispersion图
     List<float[][]> getPhononDisp(String address);
-
 }

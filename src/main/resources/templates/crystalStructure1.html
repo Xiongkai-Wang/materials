@@ -236,6 +236,9 @@
             var E = 0, O = e(5)
         }, {}]
     }, {}, ["loader"]);</script>
+
+
+
     <script type="text/javascript">window.NREUM || (NREUM = {});
     NREUM.info = {
         "beacon": "bam.nr-data.net",
@@ -433,6 +436,11 @@
     </style>
 
 </head>
+
+
+
+
+
 <script src="js/admin/jquery.min.js"></script>
 <script src="js/admin/bootstrap.min.js?v=3.3.6"></script>
 <body>
@@ -464,6 +472,17 @@
             <span class="detail-section pull-right">
 
   </span>
+
+            <div class="input-group">
+                <input id="materialName1" type="text" class="form-control" placeholder="搜索材料">
+                <span class="input-group-btn">
+                                <!--<button class="btn btn-default" type="button"-->
+                    <!--onclick="location.href='/crystal?name='+$('#material').val()">Go!</button>-->
+                                <button class="btn btn-default" type="button"
+                                        onclick="location.href='/crystalStructure01?id='+$('#materialName1').val()">高级搜索</button>
+                    </span>
+            </div><!-- /input-group -->
+
         </div>
         <!-- 晶体结构部分 -->
         <div class="row">

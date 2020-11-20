@@ -204,12 +204,18 @@
       </if>
     </trim>
   </insert>
+
+
+
   <select id="countByExample" parameterType="com.xjtu.materials.pojo.KnowsExample" resultType="java.lang.Integer" >
     select count(*) from knows
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+
+
+
   <update id="updateByExampleSelective" parameterType="map" >
     update knows
     <set >
@@ -248,6 +254,9 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+
+
+
   <update id="updateByExampleWithBLOBs" parameterType="map" >
     update knows
     set knowsID = #{record.knowsid,jdbcType=VARCHAR},

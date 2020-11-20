@@ -383,7 +383,15 @@
     <div th:replace="foreWeb/index1::nav"></div>
 </header>
 
-
+<div class="input-group">
+    <input id="materialName1" type="text" class="form-control" placeholder="搜索材料">
+    <span class="input-group-btn">
+                                <!--<button class="btn btn-default" type="button"-->
+        <!--onclick="location.href='/crystal?name='+$('#material').val()">Go!</button>-->
+                                <button class="btn btn-default" type="button"
+                                        onclick="location.href='/crystalStructure01?id='+$('#materialName1').val()">高级搜索</button>
+                    </span>
+</div><!-- /input-group -->
 <div class="container">
     <input id="materialName" type="hidden" th:attr="value=${materialName}">
     <div class="detail" id="material">
