@@ -9,21 +9,21 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ThemoParam {
-    int frames = 10;
-    int species = 2;
-    int Gibbs = 1;
-    int N = 4;
-    int normaldos = 1;
-    int formlua = 1;
-    int bare = 1;
-    double Tmin = 5;
-    double Tmax = 2000;
-    double step = 40;
-    double M = 669.566;
-    double Poisson = 0.4;
-    double B0 = 500;
-    String mass = "192.22 92.906";
-    String num = "3 1";
+    int frames;// = 10;
+    int species;// = 2;
+    int Gibbs;// = 1;
+    int N;// = 4;
+    int normaldos;// = 1;
+    int formlua;// = 1;
+    int bare; //= 1;
+    double Tmin; //= 5;
+    double Tmax;// = 2000;
+    double step; //= 40;
+    double M;// = 669.566;
+    double Poisson;// = 0.4;
+    double B0;// = 500;
+    String mass;// = "192.22 92.906";
+    String num;// = "3 1";
     public ThemoParam(){
 
     }

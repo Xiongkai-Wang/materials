@@ -3,107 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+
+    <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+    <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+    <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+<!--num框控制函数-->
+<script>
+    $(document).ready(function(){
+        $("#species").blur(hide);
+        $("input").focus(hide);
+    });
+    function hide(){
+        var spcies = $("#species").val()
+        if(spcies>0&&spcies<=5) {
+            var num = $(".num")
+            var mass = $(".mass")
+            for (i = 0; i < spcies; i++) {
+                num.eq(i).show()
+                mass.eq(i).show()
+            }
+            for (i = spcies; i < 5; i++) {
+                num.eq(i).hide()
+                mass.eq(i).hide()
+            }
+        }
+    }
+</script>
+<!--表单校检-->
+<script>
+    $().ready(function() {
+// 在键盘按下并释放及提交后验证提交表单
+        $("#param").validate({
+            rules:{
+                frames: {
+                    required: true,
+                    number: true
+                },
+                species: {
+                    required: true,
+                    number: true
+                },
+                Gibbs: {
+                    required: true,
+                    number: true
+                },
+                N: {
+                    required: true,
+                    number: true
+                },
+                normaldos: {
+                    required: true,
+                    number: true
+                },
+                formlua: {
+                    required: true,
+                    number: true
+                },
+                bare: {
+                    required: true,
+                    number: true
+                },
+                Tmin: {
+                    required: true,
+                    number: true
+                },
+                Tmax: {
+                    required: true,
+                    number: true
+                },
+                step: {
+                    required: true,
+                    number: true
+                },
+                M: {
+                    required: true,
+                    number: true
+                },
+                Poisson: {
+                    required: true,
+                    number: true
+                },
+                B0: {
+                    required: true,
+                    number: true
+                },
+                masstemp: {
+                    required: true,
+                    number: true
+                },
+                numtemp: {
+                    required: true,
+                    number: true
+                }
+                 },
+            submitHandler:transferParam
+            });
+    });
+</script>
+    <style>
+        .error{
+            color:red;
+        }
+    </style>
 </head>
 <body>
-    <form  method="POST" action="/themo">
-
-        <div>
+    <form id = "param" method="POST" >
+        <li>
             <input name="frames" id="frames" type="text" placeholder="frames">
-        </div>
-        <div>
+        </li>
+        <li>
             <input name="species" id="species" type="text" placeholder="species">
-        </div>
-        <div>
+        </li>
+        <li>
             <input name="Gibbs" id="Gibbs" type="text" placeholder="Gibbs">
-        </div>
-        <div>
+        </li>
+        <li>
             <input name="N" id="N" type="text" placeholder="N">
-        </div>
-        <div>
+        </li>
+        <li>
             <input name="normaldos" id="normaldos" type="text" placeholder="normaldos">
-        </div>
-        <div>
+        </li>
+        <li>
             <input name="formlua" id="formlua" type="text" placeholder="formlua">
-        </div>
-        <div>
+        </li>
+        <li>
             <input name="bare" id="bare" type="text" placeholder="bare">
-        </div>
-        <div>
+        </li>
+        <li>
             <input name="Tmin" id="Tmin" type="text" placeholder="Tmin">
-        </div>
-        <div>
+        </li>
+        <li>
             <input name="Tmax" id="Tmax" type="text" placeholder="Tmax">
-        </div>
-        <div>
+        </li>
+        <li>
             <input name="step" id="step" type="text" placeholder="step">
-        </div>
-        <div>
+        </li>
+        <li>
             <input name="M" id="M" type="text" placeholder="M">
-        </div>
-        <div>
+        </li>
+        <li>
             <input name="Poisson" id="Poisson" type="text" placeholder="Poisson">
-        </div>
-        <div>
+        </li>
+        <li>
             <input name="B0" id="B0" type="text" placeholder="B0">
-        </div>
-        <div>
-            <input name="mass" id="mass" type="text" placeholder="mass">
-        </div>
-        <div>
-            <input name="num" id="num" type="text" placeholder="num">
-        </div>
-        <div>
-            <input type="submit" value="提交" onclick="transferParam()">
-        </div>
+        </li>
+        <li>
+            <input name="masstemp" id="mass"  class="mass" type="text" placeholder="mass">
+            <input name="masstemp" id="mass2" class="mass" type="text" placeholder="mass">
+            <input name="masstemp" id="mass3" class="mass" type="text" placeholder="mass">
+            <input name="masstemp" id="mass4" class="mass" type="text" placeholder="mass">
+            <input name="masstemp" id="mass5" class="mass" type="text" placeholder="mass">
+        </li>
+        <li>
+            <input name="numtemp" id="num" class="num" type="text" placeholder="num">
+            <input name="numtemp" id="num2" class="num" type="text" placeholder="num">
+            <input name="numtemp" id="num3" class="num" type="text" placeholder="num">
+            <input name="numtemp" id="num4" class="num" type="text" placeholder="num">
+            <input name="numtemp" id="num5" class="num" type="text" placeholder="num">
+        </li>
+        <li>
+            <input class="submit" type="submit" value="提交">
+        </li>
     </form>
 </body>
-<script>
-    function transferParam(){
-        var frames = $("#frames").val()
-        var species = $("#species").val()
-        var Gibbs = $("#Gibbs").val()
-        var N = $("#N").val()
-        var normaldos = $("#normaldos").val()
-        var formlua = $("#formlua").val()
-        var bare = $("#bare").val()
-        var Tmin = $("#Tmin").val()
-        var Tmax = $("#Tmax").val()
-        var step = $("#step").val()
-        var M = $("#M").val()
-        var Poisson = $("#Poisson").val()
-        var B0 = $("#B0").val()
-        var mass = $("#mass").val()
-        var num = $("#num").val()
 
+
+<script>
+    // 上传
+    function transferParam(){
+        var numarray = $("input[name='numtemp']").serializeArray()
+        var massarray = $("input[name='masstemp']").serializeArray()
+        var num=""
+        var mass=""
+        for(i=0;i<$("#species").val();i++){
+            num= num+" "+numarray[i].value
+            mass= mass+" "+massarray[i].value
+        }
+        num = num.trim()
+        mass = mass.trim()
+        var data = $("#param").serialize()
+        data = data+"&num="+num+"&mass="+mass
+        console.log(data)
         $.ajax(
             {
-                url: '/themo',
-                type: 'POST',
-                data: {
-                    'frames':frames,
-                    'species':species,
-                    'Gibbs':Gibbs,
-                    'N':N,
-                    'normaldos':normaldos,
-                    'formlua':formlua,
-                    'bare':bare,
-                    'Tmin':Tmin,
-                    'Tmax':Tmax,
-                    'step':step,
-                    'M':M,
-                    'Poisson':Poisson,
-                    'B0':B0,
-                    'mass':mass,
-                    'num':num
-                },
-                contentType:'application/json;charset=utf-8',
+                url: "/themo",
+                type: "POST",
+                data: data,
                 success : function(data) {
                     /**重点：前台接收到返回值，直接处理就行*/
                     alert(data);
+                },
+                error : function (){
+                    alert("wrong");
                 }
             }
-    )
-
+        )
     }
 
 

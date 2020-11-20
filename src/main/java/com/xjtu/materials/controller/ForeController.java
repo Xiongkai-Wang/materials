@@ -471,25 +471,35 @@ public class ForeController {
         return mv;
     }
 
+
+    @RequestMapping("/themodynamic")
+    public String themodynamic(){
+        return "themodynamic";
+    }
+    /**
+     * @Description 热力学计算
+     * @Auther YZB
+     * @date 1:20 2020/11/11
+     * @return java.lang.String
+     */
+    @ResponseBody
+    @RequestMapping(value =  "/themo" ,method= RequestMethod.POST)
+    public String inParam(ThemoParam themoParam){
+        System.out.println(themoParam.toString());
+        if(themoParam.getNum().split(" ").length==themoParam.getSpecies()&&
+                themoParam.getMass().split(" ").length==themoParam.getSpecies()) {
+            ThermoService thermoService = ThermoFactory.getThermoService(themoParam);
+            thermoService.run("answer.txt");
+            return "success";
+        }
+        return "wrong";
+    }
     /**
      * @Description 晶体结构
      * @Auther HL
      * @date 1:20 2019/3/26
      * @return java.lang.String
      */
-    @RequestMapping("/themodynamic")
-    public String themodynamic(){
-        return "themodynamic";
-    }
-
-
-    @ResponseBody
-    @RequestMapping(value =  "/themo" ,method= RequestMethod.POST)
-    public String themo(ThemoParam themoParam){
-        ThermoService thermoService =ThermoFactory.getThermoService(themoParam);
-        thermoService.run("answer.txt");
-        return "success";
-    }
     @RequestMapping("/crystalStructure1")
     public ModelAndView crystalStructure1(@RequestParam(value = "id") String id,@RequestParam(required = false,value = "type",defaultValue = "PBE")String CalType) {
         //文件是否存在标记，第一个对应电子结构，第二个对应热力学，1存在，0不存在

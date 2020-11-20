@@ -14,7 +14,10 @@ public class Practice {
         Field[] fields = new ThemoParam().getClass().getDeclaredFields();
         for(Field field:fields){
             String name =field.getName();
-            System.out.printf("\'%s\':%s\n",name,name);
+            System.out.printf("%s: {\n" +
+                    "\t        required: true,\n" +
+                    "\t        number: true\n" +
+                    "\t      },\n",name);
         }
     }
 }
