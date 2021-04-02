@@ -8,6 +8,7 @@ import com.xjtu.materials.service.*;
 import com.xjtu.materials.serviceImpl.ThermoServiceImpl;
 import com.xjtu.materials.util.FileUtil;
 import com.xjtu.materials.util.ReadFromFile;
+import jdk.jfr.events.FileReadEvent;
 import org.python.antlr.ast.Str;
 import org.python.apache.commons.compress.utils.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -899,13 +900,41 @@ public class ForeController {
         return "/crystalStructure";
     }
 
-    @RequestMapping("/crystalStructure2")
-    public String TricliniCrystal(@RequestParam(value = "id",required = false,defaultValue = "C:\\Users\\Xiongkai\\Desktop\\Sij.txt") String id){
-        // String str = new String("C:\\Users\\Xiongkai\\Desktop\\Sij.txt");
-        String str = id;
-        TricliniCrystalGeneralcase.JNATestDll.instanceDll.triclinic_crystal_generalcase(str);
+//    @RequestMapping("/crystalStructure02")
+//    public String TricliniCrystal(@RequestParam(value = "id",required = false,defaultValue = "C:\\Users\\Xiongkai\\Desktop\\Sij.txt") String id,
+//                                  ){
+//        // String str = new String("C:\\Users\\Xiongkai\\Desktop\\Sij.txt");
+//        String str = id;
+//        TricliniCrystalGeneralcase.JNATestDll.instanceDll.triclinic_crystal_generalcase(str);
+//        return "/crystalStucture2";
+//    }
+    @RequestMapping("/tricliniCrystal")
+    public String triclini() {
+        return "/tricliniCrystal";
+    }
 
-        return "/crystalStucture2";
+    @RequestMapping("/crystalStructure02")
+    public String TricliniCrystal(@RequestParam("files") MultipartFile files){
+        // String str = new String("C:\\Users\\Xiongkai\\Desktop\\Sij.txt");
+        String name = files.getOriginalFilename();
+        try {
+            byte [] bytes = files.getBytes();
+            File pfile = new File("C:\\Users\\Xiongkai\\Desktop\\");
+            File file = new File(pfile, name);
+            OutputStream out = new FileOutputStream(file);
+            out.write(bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        File file = new File("C:\\Users\\Xiongkai\\Desktop\\"+name);
+        try {
+            files.transferTo(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String str = file.getPath();
+        TricliniCrystalGeneralcase.JNATestDll.instanceDll.triclinic_crystal_generalcase(str);
+        return "/success";
     }
     /**
      * @Description 能带结构图
