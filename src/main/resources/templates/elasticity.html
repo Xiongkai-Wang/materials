@@ -383,17 +383,43 @@
     <div th:replace="foreWeb/index1::nav"></div>
 </header>
 
-<div th:replace="search::body"></div>
+<!--<div th:replace="search::body"></div>-->
 
-<div class="input-group">
-    <input id="materialName1" type="text" class="form-control" placeholder="搜索材料">
-    <span class="input-group-btn">
+<div style="padding: 20px 100px 10px;" class="text-center">
+    <form class="bs-example bs-example-form" role="form">
+        <div class="row">
+            <div class="col-lg-6 col-lg-offset-3">
+
+                <div class="input-group">
+                    <input id="materialN" type="text" class="form-control" placeholder="搜索材料">
+                    <span class="input-group-btn">
                                 <!--<button class="btn btn-default" type="button"-->
-        <!--onclick="location.href='/crystal?name='+$('#material').val()">Go!</button>-->
-                                <button class="btn btn-default" type="button"
-                                        onclick="location.href='/crystalStructure01?id='+$('#materialName1').val()">高级搜索</button>
+                        <!--onclick="location.href='/crystal?name='+$('#material').val()">Go!</button>-->
+                        <button class="btn btn-default" type="button" onclick="location.href='/elasticity?id='+$('#materialN').val()">高级搜索</button>
                     </span>
-</div><!-- /input-group -->
+                </div><!-- /input-group -->
+
+                <br>
+                <p class="text-center"><b>Materials Genome Database of Refractory Metals and Alloys</b></p>
+            </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+    </form>
+</div>
+
+<!--<div class="input-group">-->
+<!--    <input id="materialName1" type="text" class="form-control" placeholder="搜索材料">-->
+<!--    <span class="input-group-btn">-->
+<!--                                &lt;!&ndash;<button class="btn btn-default" type="button"&ndash;&gt;-->
+<!--        &lt;!&ndash;onclick="location.href='/crystal?name='+$('#material').val()">Go!</button>&ndash;&gt;-->
+<!--        <button class="btn btn-default" type="button" onclick="location.href='/elasticity?id='+$('#materialName1').val()">高级搜索</button>-->
+<!--    </span>-->
+<!--</div>-->
+
+
+<!-- /input-group -->
+
+
+
 <div class="container">
     <input id="materialName" type="hidden" th:attr="value=${materialName}">
     <div class="detail" id="material">
