@@ -914,7 +914,7 @@ public class ForeController {
         return "/tricliniCrystal";
     }
 
-    @RequestMapping("/crystalStructure02")
+    @RequestMapping("/tricliniCrystal02")
     public String TricliniCrystal(@RequestParam("files") MultipartFile files){
         // String str = new String("C:\\Users\\Xiongkai\\Desktop\\Sij.txt");
         String name = files.getOriginalFilename();
@@ -934,7 +934,8 @@ public class ForeController {
             e.printStackTrace();
         }
         String str = file.getPath();
-        TricliniCrystalGeneralcase.JNATestDll.instanceDll.triclinic_crystal_generalcase(str);
+        TricliniCrystalGeneralcase.JNATestDll.instanceDll.triclinic_crystal_generalcase(str, "C:\\Users\\Xiongkai\\IdeaProjects\\materials\\cache");
+        System.out.println("success");
         return "/success";
     }
 

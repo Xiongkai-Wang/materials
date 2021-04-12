@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -105,260 +105,99 @@
 <body>
 
 <header>
-    <nav class="navbar navbar-inverse" th:fragment="nav" style="z-index: 1">
-        <div class="navbar-inner">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
-            <div class="nav-collapse">
-                <a class="brand" href="/fore"><img class="lattices-graphic" src="/images/log/kmligong.png"></a>
-
-                <ul class="nav pull-right" role="navigation">
-                    <li>
-                        <a href="/index1">主页</a>
-                    </li>
-                    <li class="dropdown">
-                        <a data-toggle=dropdown role="button" class="dropdown-toggle" href="#">关于 <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li role="presentation">
-                                <a href="/about">关于</a>
-                            </li>
-                            <li role="presentation">
-                                <a class="" href="https://discuss.materialsproject.org" target="_blank">
-                                    论坛
-                                </a>
-                            </li>
-                            <li role="presentation">
-                                <a href="/press">Press</a>
-                            </li>
-                            <li role="presentation">
-                                <a href="/references">出版物</a>
-                            </li>
-                            <li role="presentation">
-                                <a href="/citing">引用</a>
-                            </li>
-                            <li role="presentation">
-                                <a href="/infrastructure">基础设施</a>
-                            </li>
-                        </ul>
-                    </li>
+    <div th:replace="foreWeb/index1::nav"></div>
+</header>
 
 
-                    <!--                    <li class="dropdown">-->
-                    <!--                        <a data-toggle=dropdown role="button" class="dropdown-toggle" href="#">Apps <b-->
-                    <!--                                class="caret"></b></a>-->
-
-                    <!--                        <ul class="dropdown-menu">-->
-                    <!--                            <li role="presentation">-->
-                    <!--                                <a href="/janrain/loginpage/?next=/#search/materials/">Materials Explorer</a>-->
-                    <!--                            </li>-->
-                    <!--                            <li role="presentation">-->
-                    <!--                                <a href="/janrain/loginpage/?next=/#search/batteries/">Battery Explorer</a>-->
-                    <!--                            </li>-->
-                    <!--                            <li role="presentation">-->
-                    <!--                                <a href="/janrain/loginpage/?next=/#apps/xtaltoolkit">Crystal Toolkit</a>-->
-                    <!--                            </li>-->
-                    <!--                            <li role="presentation">-->
-                    <!--                                <a href="/janrain/loginpage/?next=/#apps/structurepredictor">Structure Predictor</a>-->
-                    <!--                            </li>-->
-                    <!--                            <li role="presentation">-->
-                    <!--                                <a href="/janrain/loginpage/?next=/#apps/phasediagram/">Phase Diagram</a>-->
-                    <!--                            </li>-->
-                    <!--                            <li role="presentation">-->
-                    <!--                                <a href="/janrain/loginpage/?next=/#apps/pourbaixdiagram">Pourbaix Diagram</a>-->
-                    <!--                            </li>-->
-                    <!--                            <li role="presentation">-->
-                    <!--                                <a href="/janrain/loginpage/?next=/#apps/reactioncalculator">Reaction Calculator</a>-->
-                    <!--                            </li>-->
-                    <!--                            <li role="presentation">-->
-                    <!--                                <a href="/janrain/loginpage/?next=/#search/thermo">Thermodynamical Data</a>-->
-                    <!--                            </li>-->
-                    <!--                            <li role="presentation">-->
-                    <!--                                <a href="/janrain/loginpage/?next=/#compare">Compare Elements</a>-->
-                    <!--                            </li>-->
-                    <!--                            <li role="presentation">-->
-                    <!--                                <a href="/janrain/loginpage/?next=/#search/porous/">Nanoporous Explorer</a>-->
-                    <!--                            </li>-->
-                    <!--                            <li role="presentation">-->
-                    <!--                                <a href="/janrain/loginpage/?next=/#search/molecules/">Molecules Explorer</a>-->
-                    <!--                            </li>-->
-                    <!--                            <li role="presentation">-->
-                    <!--                                <a href="/janrain/loginpage/?next=/#apps/rfbdashboard/">RFB Dashboard</a>-->
-                    <!--                            </li>-->
-                    <!--                            <li role="presentation">-->
-                    <!--                                <a href="/janrain/loginpage/?next=/#apps/xas/">XAS Matcher</a>-->
-                    <!--                            </li>-->
-                    <!--                            <li role="presentation">-->
-                    <!--                                <a href="/janrain/loginpage/?next=/apps/synthesis/">Synthesis Descriptions</a>-->
-                    <!--                            </li>-->
-                    <!--                        </ul>-->
-                    <!--                    </li>-->
-
-
-                    <li class="dropdown">
-                        <a data-toggle=dropdown role="button" class="dropdown-toggle" href="/references">文献 <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li role="presentation">
-                                <a href="/references">文献查询</a>
-                            </li>
-                            <li role="presentation">
-                                <a href="/upload_publication">文献上传</a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li>
-                    <li>
-                        <a href="/uploadFile">文件上传</a>
-                    </li>
-
-                    <li>
-                        <a href="/downLoad?name=">文件下载</a>
-                    </li>
-                    <!--                    <li>-->
-                    <!--                        &lt;!&ndash;<a href="/dashboard" data-icon="&gt;" class="icon">Dashboard</a>&ndash;&gt;-->
-                    <!--                        <a href="/dashboard" class="icon">Dashboard</a>-->
-                    <!--                    </li>-->
-                    <li>
-                        <a href="/login"> 登出</a>
-                    </li>
-
-                </ul>
+<div class="row">
+    <div class="span2"></div>
+    <div class="span4">
+        <div class="container">
+            <div class="headerFont">
+                <h1 style="color: #DAA520; margin-top: 100px;">上传文件端口：</h1>
             </div>
-        </div>
-
-        <div class='card-holder'>
-            <div class='card-wrapper'>
-                <a href='#'>
-                    <div class='card bg-01'>
-                        <a href="/searchPage1?name="><span class='card-content'>总览</span></a>
-                    </div>
-                </a>
-            </div>
-            <div class='card-wrapper'>
-                <a href='#'>
-                    <div class='card bg-02'>
-                        <a href="/searchPage2?name="><span class='card-content'>晶体结构</span></a>
-                    </div>
-                </a>
-            </div>
-            <div class='card-wrapper'>
-                <a href='#'>
-                    <div class='card bg-03'>
-                        <a href="/searchPage3?name="><span class='card-content'>电子结构</span></a>
-                    </div>
-                </a>
-            </div>
-            <div class='card-wrapper'>
-                <a href='#'>
-                    <div class='card bg-04'>
-                        <a href="/searchPage4?name="><span class='card-content'>声子色散</span></a>
-                    </div>
-                </a>
-            </div>
-            <!--            <div class='card-wrapper'>-->
-            <!--                <a href='#'>-->
-            <!--                    <div class='card bg-05'>-->
-            <!--                        <a href="/searchPage5?name="><span class='card-content'>Thermodynamics</span></a>-->
-            <!--                    </div>-->
-            <!--                </a>-->
-            <!--            </div>-->
-            <div class='card-wrapper'>
-                <a href='#'>
-                    <div class='card bg-06'>
-                        <a href="/searchPage6?name="><span class='card-content'>弹性模量</span></a>
-                    </div>
-                </a>
-            </div>
-        </div>
-
-
-        <div style="width:960px;margin:0px auto; clear:both; text-align:center; ">
-            <!--            <script src="/statics/js/ad/96090.js" type="text/javascript"></script>-->
-        </div>
-        <div style="width:960px;margin:0px auto 0px auto; clear:both; text-align:center; font-size:12px; line-height:25px; ">
-        </div>
-
-    </nav>
-</header>\
-
-<h1 align="center">文件提交</h1>
-
-<div align="center">
-    <form action="/crystalStructure02" enctype="multipart/form-data" method="post" name="fileinfo">
-        <label>File to upload:</label>
-        <input type="file" name="files" required />
-
-        <input type="submit" value="提交" />
-    </form>
-</div>
-
-
-<div></div>
-
-<!--<script type="text/javascript">-->
-<!--    var form = document.forms.namedItem("fileinfo");-->
-<!--    form.addEventListener('submit', function(ev) {-->
-
-<!--        var oOutput = document.querySelector("div"),-->
-<!--            oData = new FormData(form);-->
-
-<!--// 也可通过append方法添加数据，FormData的类似方法可参考https://developer.mozilla.org/en-US/docs/Web/API/FormData-->
-<!--        oData.append("secondParam", "这是第二个参数");-->
-
-<!--        var oReq = new XMLHttpRequest();-->
-<!--        oReq.open("POST", "http://localhost:8080/upload", true);-->
-<!--        oReq.onload = function(oEvent) {-->
-<!--            if (oReq.status == 200) {-->
-<!--                // 其中类似responseText的属性可参考https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest-->
-<!--                alert(oReq.responseText);-->
-<!--                // doSomething...-->
-<!--            } else {-->
-<!--                // doSomething...-->
-<!--            }-->
-<!--        };-->
-
-<!--        oReq.send(oData);-->
-<!--        ev.preventDefault();-->
-<!--    }, false);-->
-<!--</script>-->
-
-
-<!--<div class="row">-->
-<!--    <div class="span2"></div>-->
-<!--    <div class="span4">-->
-<!--        <div class="container">-->
-<!--            <div class="headerFont">-->
-<!--                <h1 style="color: #DAA520; margin-top: 100px;">上传文件端口：</h1>-->
-<!--            </div>-->
-<!--            <div>-->
-<!--                <form action="/upload_cif" class="form-login" method="post" enctype="multipart/form-data">-->
-<!--                    <p>文件夹上传:</p>-->
-<!--                    <div><input type="file" id="folder" name="folder" size="15" multiple webkitdirectory></div>-->
-<!--                    <br>-->
-<!--                   &lt;!&ndash; <select id="type"  name="type" onclick="getTypeList()">-->
-<!--                        <option value="singleSection">单文件部分覆盖</option>-->
+            <div>
+                <form action="/tricliniCrystal02" class="form-login" method="post" enctype="multipart/form-data">
+                    <p>文件上传:</p>
+                    <div><input type="file" id="file" name="files" size="15" ></div>
+                    <br>
+                    <select id="type"  name="type" onclick="getTypeList()">
+                        <option value="singleSection">单文件上传</option>
 <!--                        <option value="singleAll">单文件全部替换</option>-->
 <!--                        <option value="lotSection">多文件批量覆盖</option>-->
-<!--                        <option value="lotAll">多文件全部替换</option>-->
-<!--                    </select> &ndash;&gt;-->
-<!--                    <br>-->
-<!--                    <button type="submit">上传</button>-->
-<!--                    &lt;!&ndash;            <button type="button" class="btn btn-success save" style="margin-left:10px;"  onclick="addToBlacklist()">上传</button>&ndash;&gt;-->
-<!--                </form>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="span2"></div>-->
-<!--    <div class="span8">-->
-<!--        <br>-->
-<!--        <br>-->
-<!--        <br>-->
-<!--        <img th:src="@{~/kunmingligong.jpg}"/>-->
-<!--    </div>-->
-<!--</div>-->
+                        <!--<option value="lotAll">多文件全部替换</option>-->
+                    </select>
+                    <br>
+                    <button type="submit">上传</button>
+                    <!--            <button type="button" class="btn btn-success save" style="margin-left:10px;"  onclick="addToBlacklist()">上传</button>-->
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="span2"></div>
+    <div class="span8">
+        <br>
+        <br>
+        <br>
+        <img th:src="@{~/kunmingligong.jpg}"/>
+    </div>
+</div>
+
+<!--<script>-->
+<!--    function addToBlacklist() {-->
+<!--        // var myform = new FormData();-->
+<!--        // myform.append('file', $("#folder")[0].files);-->
+<!--        // myform.append('fileType',$("#type").val());-->
+<!--        var folder = document.getElementById("folder").files;-->
+<!--        if(folder.length==0)-->
+<!--        {-->
+<!--            alert("请选择文件");-->
+<!--            return;-->
+<!--        }-->
+<!--        var formData=new FormData();-->
+<!--        for(var i=0;i<folder.length;i++)-->
+<!--        {-->
+<!--            //将每个文件设置一个string类型的名字，放入到formData中，这里类似于setAttribute("",Object)-->
+<!--            formData.append(folder[i].name,folder[i]);-->
+<!--        }-->
+<!--        if (confirm("确认上传文件？")) {-->
+<!--            $.ajax({-->
+<!--                type: "POST",-->
+<!--                cache:false,-->
+<!--                url: "/upload_cif",-->
+<!--                data: formData,-->
+<!--                async: false,-->
+<!--                contentType: false,-->
+<!--                processData: false,-->
+<!--                // data: {-->
+<!--                //     "folder": folder.value,-->
+<!--                //     "type": type.value-->
+<!--                // },-->
+<!--                // dataType: "json",-->
+<!--                success: function (data) {-->
+<!--                    alert("文件已上传！");-->
+<!--                    window.location.reload();-->
+<!--                }-->
+<!--            });-->
+<!--        } else {-->
+<!--            return-->
+<!--        }-->
+<!--        return true;-->
+<!--    }-->
+<!--</script>-->
 
 </body>
 </html>
+
+
+
+<!--<h1 align="center" >文件提交</h1>-->
+
+<!--<div align="center">-->
+<!--    <form action="/tricliniCrystal02" enctype="multipart/form-data" method="post" name="fileinfo">-->
+
+<!--        <input type="file" name="files" class="wxk" align="center" required />-->
+
+<!--        <input type="submit" value="正式提交" class="wxk" align="center"/>-->
+<!--    </form>-->
+<!--</div>-->

@@ -434,11 +434,64 @@
 </head>
 <script src="js/admin/jquery.min.js"></script>
 <script src="js/admin/bootstrap.min.js?v=3.3.6"></script>
+
+
 <body>
+
+
 <header>
     <div th:replace="foreWeb/index1::nav"></div>
 </header>
 
+<div style="padding: 20px 100px 10px;" class="text-center">
+    <form class="bs-example bs-example-form" role="form">
+        <div class="row">
+            <div class="col-lg-6 col-lg-offset-3">
+
+                <div class="input-group">
+                    <input id="materialN" type="text" class="form-control" placeholder="搜索材料">
+                    <span class="input-group-btn">
+                                <!--<button class="btn btn-default" type="button"-->
+                        <!--onclick="location.href='/crystal?name='+$('#material').val()">Go!</button>-->
+                        <button class="btn btn-default" type="button" onclick="location.href='/searchPage3?name='+$('#materialN').val()">高级搜索</button>
+                    </span>
+                </div><!-- /input-group -->
+
+                <br>
+                <p class="text-center"><b>Materials Genome Database of Refractory Metals and Alloys</b></p>
+            </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+    </form>
+</div>
+
+<script>
+    function addToBlacklist(id) {
+        var materialId = document.getElementById(id).id;
+        if (confirm("确认将cif文件下载在D:\\dataDownLoad文件夹下？")) {
+            $.ajax({
+                type: "POST",
+                url: "/downLoadFile",
+                data: {
+                    "materialId": materialId
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data == 0) {
+                        alert("文件不存在，下载失败！");
+                    }
+                    else if(data == 1){
+                        alert("下载成功！");
+                    }
+                    window.location.reload();
+                }
+            });
+        } else {
+            return
+        }
+        return true;
+
+    }
+</script>
 
 <div class="container">
     <input id="materialName" type="hidden" th:attr="value=${materialName}">
@@ -481,7 +534,7 @@
 
 
                         <hr class="pull-up">
-                        <button class="btn btn-primary" id="edit-xtal">导出数据</button>
+                        <button class="btn btn-primary" id="edit-xtal" onclick="addToBlacklist(this.id)">导出数据</button>
 
                         <div class="pull-down pull-up">
                             <strong>标签: </strong>

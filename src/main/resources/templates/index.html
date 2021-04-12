@@ -13,7 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.2.1/echarts.js"></script>
 </head>
 
-<body>
+<body background="/img/crystal.jpg">
 <nav class="navbar navbar-default" role="navigation" th:fragment="nav">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -23,12 +23,9 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class=""><a href="/index">首页</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        应用
-                        <b class="caret"></b>
-                    </a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">应用<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/searchPage?name=">Crystal Structure</a></li>
+                        <li><a href="/searchPage2?name=">Crystal Structure</a></li>
                         <li><a href="/searchPage3?name=">Electronic Structure</a></li>
                         <li><a href="searchPage4?name=">Phonon Dispersions</a></li>
                         <li><a href="searchPage5?name=">Thermodynamics</a></li>
@@ -37,7 +34,14 @@
                     </ul>
                 </li>
                 <li><a href="/paper">相关文献</a></li>
-                <li><a href="/upload">上传</a></li>
+<!--                <li><a href="/upload">上传</a></li>-->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">上传<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/uploadFile">文件上传</a></li>
+                        <li><a href="/upload_publication">文献上传</a></li>
+                    </ul>
+                </li>
                 <li><a href="/login">登录</a></li>
             </ul>
         </div>
@@ -94,38 +98,38 @@
 <!--&lt;!&ndash;<div id = "mainTest" style = "width: 600px;height:400px;">&ndash;&gt;-->
 <!--&lt;!&ndash;</div>&ndash;&gt;-->
 
-<footer>
-    <hr>
-    <ul class="text-center inline">
-        <li>
-            <a href="/about">关于</a>
-        </li>
-        <li>
-            <a class="" href="" target="_blank">
-                论坛
-            </a>
+<!--<footer>-->
+<!--    <hr>-->
+<!--    <ul class="text-center inline">-->
+<!--        <li>-->
+<!--            <a href="/about">关于</a>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a class="" href="" target="_blank">-->
+<!--                论坛-->
+<!--            </a>-->
 
-        </li>
-        <li>
-            <a href="/citing">引用</a>
-        </li>
-        <li>
-            <a href="/terms">我们的团队</a>
-        </li>
-        <li>
-            <a href="/open">API</a>
-        </li>
-    </ul>
-    <!--<div class="pad-top row text-center">-->
-    <!--<small>-->
-    <!--由 <a href="http://pymatgen.org">pymatgen</a>,-->
-    <!--<a href="https://materialsproject.github.io/custodian">custodian</a>,-->
-    <!--<a href="https://materialsproject.github.io/fireworks">fireworks</a>,-->
-    <!--and <a href="https://hackingmaterials.github.io/atomate">atomate</a>.-->
-    <!--</small>-->
-    <!--</div>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a href="/citing">引用</a>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a href="/terms">我们的团队</a>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <a href="/open">API</a>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--    &lt;!&ndash;<div class="pad-top row text-center">&ndash;&gt;-->
+<!--    &lt;!&ndash;<small>&ndash;&gt;-->
+<!--    &lt;!&ndash;由 <a href="http://pymatgen.org">pymatgen</a>,&ndash;&gt;-->
+<!--    &lt;!&ndash;<a href="https://materialsproject.github.io/custodian">custodian</a>,&ndash;&gt;-->
+<!--    &lt;!&ndash;<a href="https://materialsproject.github.io/fireworks">fireworks</a>,&ndash;&gt;-->
+<!--    &lt;!&ndash;and <a href="https://hackingmaterials.github.io/atomate">atomate</a>.&ndash;&gt;-->
+<!--    &lt;!&ndash;</small>&ndash;&gt;-->
+<!--    &lt;!&ndash;</div>&ndash;&gt;-->
 
-</footer>
+<!--</footer>-->
 </body>
 <script th:inline="javascript">
     // 基于准备好的dom，初始化echarts实例
@@ -330,6 +334,9 @@
 <!--</script>-->
 <script>
     // $.backstretch("/img/timg.jpg", {speed: 0});
+</script>
+<script>
+    $.backstretch("/img/timg.jpg", {speed: 0});
 </script>
 
 </html>

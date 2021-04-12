@@ -9,12 +9,47 @@
     <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script src="https://cdn.bootcss.com/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.2.1/echarts.js"></script>
 </head>
 <body>
 
-<header>
-    <div th:replace="foreWeb/index1::nav"></div>
-</header>
+<nav class="navbar navbar-default" role="navigation" th:fragment="nav">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/index">稀贵金属材料基因组数据库</a>
+        </div>
+        <div>
+            <ul class="nav navbar-nav navbar-right">
+                <li class=""><a href="/index">首页</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">应用<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/searchPage2?name=">Crystal Structure</a></li>
+                        <li><a href="/searchPage3?name=">Electronic Structure</a></li>
+                        <li><a href="searchPage4?name=">Phonon Dispersions</a></li>
+                        <li><a href="searchPage5?name=">Thermodynamics</a></li>
+                        <li><a href="searchPage6?name=">Elasticity</a></li>
+                        <li><a href="/references">Publications</a></li>
+                    </ul>
+                </li>
+                <li><a href="/paper">相关文献</a></li>
+                <!--                <li><a href="/upload">上传</a></li>-->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">上传<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/uploadFile">文件上传</a></li>
+                        <li><a href="/upload_publication">文献上传</a></li>
+                    </ul>
+                </li>
+                <li><a href="/login">登录</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!--<header>-->
+<!--    <div th:replace="foreWeb/index1::nav"></div>-->
+<!--</header>-->
 
 <div class="container">
     <div style="padding: 20px 100px 10px;">
