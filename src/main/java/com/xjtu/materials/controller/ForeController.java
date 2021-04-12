@@ -783,7 +783,7 @@ public class ForeController {
 
         String materialName = upLoadMaterialMapper.selectByPrimaryKey(id).getMaterialname();
         //此处更新路径
-        String Path = "D:\\data\\"+materialName+"\\+CalType+\\electronic properties\\"+materialName+" Band Structure.csv";
+        String Path = "D:\\data\\"+materialName+"\\"+CalType+"\\electronic properties\\"+materialName+" Band Structure.csv";
         // 能带密度图
         List<float[][]> data_band = chartService.getBandData(Path);
         // 总态密度
@@ -861,13 +861,14 @@ public class ForeController {
 
         // PDOS
         //String pathElas = "D:\\data\\"+materialName+"\\"+CalType+"\\mechanical property\\"+materialName+" Elastic Constants.txt";
-        String pathElas = "D:\\data\\"+materialName+"\\"+CalType+"\\mechanical property\\"+"Elastic Constants.txt";
+        String pathElas = "D:\\data\\"+materialName+"\\"+CalType+"\\mechanical property\\"+"Elastic Constant.txt";
         List<float[][]> mechData = chartService.getMechData(pathElas);
-
+        System.out.println(mv);
         mv.addObject("materialName", materialName);
         mv.addObject("mechData", mechData);
         mv.addObject("id",id);
         mv.addObject("type",CalType);
+
         return mv;
     }
 
@@ -935,6 +936,11 @@ public class ForeController {
         String str = file.getPath();
         TricliniCrystalGeneralcase.JNATestDll.instanceDll.triclinic_crystal_generalcase(str);
         return "/success";
+    }
+
+    @RequestMapping("/about")
+    public String about() {
+        return "/about";
     }
     /**
      * @Description 能带结构图

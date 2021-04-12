@@ -388,6 +388,8 @@
     <div th:replace="foreWeb/index1::nav"></div>
 </header>
 
+<div th:replace="search::body"></div>
+
 <div class="container">
     <input id="materialName" type="hidden" th:attr="value=${materialName}">
     <div class="detail" id="material">
@@ -614,6 +616,7 @@
     var dataList = [[${dataPDOS}]];
     // console.log("PDOS数据：" + dataList);
     // console.log("PDOS长度：" + dataList.length);
+    console.log("PDOS：" +dataList);
     var seriesData = [];
     var names = ["s", "p", "d", "f"];
     for (var i = 0; i < dataList.length; i++) {
