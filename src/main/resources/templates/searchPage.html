@@ -45,7 +45,7 @@
                 <a th:href="'/crystalStructure1?id='+${Material.materialid}">
                     <button type="button" class="RoleOfdelete btn btn-primary  btn-sm" style="margin-right:15px;">晶体结构</button>
                 </a>
-                <a th:href="'/electronicStructrue?id='+${Material.materialid}">
+                <a th:href="'/electronicStructure?id='+${Material.materialid}">
                     <button type="button" class="RoleOfdelete btn btn-primary  btn-sm" style="margin-right:15px;">电子能带结构</button>
                 </a>
                 <a th:href="'/phonon?id='+${Material.materialid}">
@@ -54,7 +54,8 @@
                 <a th:href="'/themodynamic?id='+${Material.materialid}">
                     <button type="button" class="RoleOfdelete btn btn-primary  btn-sm" style="margin-right:15px;">热力学性质</button>
                 </a>
-                <a th:href="'/elasticity?id='+${Material.materialid}">
+<!--             修改   -->
+                <a th:href="'/elasticity?id='+${Material.materialname}">
                     <button type="button" class="RoleOfedit btn btn-primary  btn-sm" style="margin-right:15px;">力学性质</button>
                 </a>
             </td>
