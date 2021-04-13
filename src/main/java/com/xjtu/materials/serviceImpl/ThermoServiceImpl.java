@@ -72,7 +72,5 @@ public class ThermoServiceImpl implements ThermoService {
         fit(filename,storename);
     }
 
-
-
 }
 

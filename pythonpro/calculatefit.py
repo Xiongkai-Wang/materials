@@ -38,4 +38,4 @@ def main(filename,storefile):
 if __name__ == '__main__':
       filename = sys.argv[1]
       storefile = sys.argv[2]
-      main(filename,storefile)
+      main(filename, storefile)

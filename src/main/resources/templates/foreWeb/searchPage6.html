@@ -1185,7 +1185,16 @@
                         <td th:text="${Material.materialname}"></td>
                         <td th:text="${Material.type}"></td>
                         <td th:text="${Material.time}"></td>
-                        <td th:if="${isExist[MaterialStat.index]} eq 1"><a th:href="'/elasticity?id='+${Material.materialid}"><button th:id="${Material.materialname}" type="button" class="RoleOfdelete btn btn-info  btn-sm" style="margin-left:10px;">查看</button></a>
+                        <td >
+                            <a th:href="'elasticity?id='+${Material.materialname}">
+                                <button type="button" class="RoleOfdelete btn btn-info  btn-sm" style="margin-left:10px;">查看</button>
+                            </a>
+<!--                        <td th:if="${isExist[MaterialStat.index]} eq 1">-->
+<!--                            <a th:href="'/elasticity?id='+${Material.materialname}">-->
+<!--                                <button th:id="${Material.materialname}" type="button" class="RoleOfdelete btn btn-info  btn-sm" style="margin-left:10px;">查看-->
+<!--                                </button>-->
+<!--                            </a>-->
+<!--                        </td>-->
 <!--                        <td><a th:href="'/elasticity?id=test'"><button type="button" class="RoleOfdelete btn btn-info  btn-sm" style="margin-left:10px;">测试用</button></a>-->
                             <!--                            <a th:href="'/bandDensity?id='+${Material.materialid}"><button type="button" class="RoleOfdelete btn btn-info  btn-sm" style="margin-left:10px;">电子能带结构</button></a>-->
                             <!--                            <a th:href="'/generalDensity?id='+${Material.materialid}"><button type="button" class="RoleOfdelete btn btn-info  btn-sm" style="margin-left:10px;">总态密度图</button></a>-->
@@ -1193,6 +1202,7 @@
                             <!--<button type="button" class="RoleOfdelete btn btn-primary  btn-sm" style="margin-right:15px;">声子谱</button>-->
                             <!--<button type="button" class="RoleOfdelete btn btn-primary  btn-sm" style="margin-right:15px;">热力学性质</button>-->
                             <!--<button type="button" class="RoleOfedit btn btn-primary  btn-sm" style="margin-right:15px;">力学性质</button></td>-->
+
                     </tr>
                     </tbody>
                 </table>

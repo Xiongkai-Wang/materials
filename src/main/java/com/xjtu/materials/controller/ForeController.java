@@ -866,8 +866,13 @@ public class ForeController {
         System.out.println(mv);
         mv.addObject("materialName", materialName);
         mv.addObject("mechData", mechData);
-        mv.addObject("id",id);
+        mv.addObject("id", id);
         mv.addObject("type",CalType);
+
+        // wxk 2021.01.13
+        String pic1 = "cache/Bulk_modulus_xyz.dat";
+        String pic2 = "cache/Young_modulus_xyz.dat";
+
 
         return mv;
     }

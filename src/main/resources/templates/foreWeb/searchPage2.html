@@ -1185,7 +1185,10 @@
                         <td th:text="${Material.materialname}"></td>
                         <td th:text="${Material.type}"></td>
                         <td th:text="${Material.time}"></td>
-                        <td th:if="${isExist[MaterialStat.index]} eq 1"><a th:href="'/crystalStructure2?id='+${Material.materialid}"><button type="button" class="RoleOfdelete btn btn-info  btn-sm" style="margin-left:10px;">查看</button></a>
+                        <td th:if="${isExist[MaterialStat.index]} eq 1">
+                            <a th:href="'/crystalStructure2?id='+${Material.materialid}">
+                                <button type="button" class="RoleOfdelete btn btn-info  btn-sm" style="margin-left:10px;">查看</button>
+                            </a>
                     </tr>
                     </tbody>
                 </table>
