@@ -4,6 +4,7 @@
 <head>
     <title>弹性模量</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="text/javascript" src="JSmol.full.js"></script>
     <script type="text/javascript">window.NREUM || (NREUM = {}), __nr_require = function (e, n, t) {
         function r(t) {
             if (!n[t]) {
@@ -616,55 +617,6 @@
 
 
 </body>
-<!--弹性模量-->
-<script th:inline="javascript">
-    // 基于准备好的dom，初始化echarts实例
-    console.log("进入JS");
-    var myChart = echarts.init(document.getElementById('main'));
-    var dataZong = [[${mechData.get(3)}]];
-    for (var i = 0; i < 100; i++) {
-        console.log(dataZong[i][0])
-    }
-    // console.log("数据：" + dataList);
-    // 指定图表的配置项和数据
-    var option = {
-        // title: {
-        //     text: '弹性模量'
-        // },
-        tooltip: {},
-        // legend: {
-        //     data:['销量']
-        // },
-        xAxis: {
-            name: 'Gpa'
-        },
-        yAxis: {
-            name: '力学模量面投影(GPa)'
-        },
-        dataZoom: [
-            {
-                type: 'inside',
-                xAxisIndex: [0],
-                start: 0,
-                end: 100
-            },
-            {
-                type: 'inside',
-                yAxisIndex: [0],
-                start: 0,
-                end: 100
-            }
-        ],
-        series: [{
-            type: 'line',
-            smooth: true,
-            data: dataZong
-        }]
-    };
-
-    // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option);
-</script>
 
 <script th:inline="javascript">
     // 基于准备好的dom，初始化echarts实例
@@ -714,5 +666,59 @@
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
 </script>
+
+
+<!--弹性模量-->
+
+<script th:inline="javascript">
+    // 基于准备好的dom，初始化echarts实例
+    console.log("进入JS");
+    var myChart = echarts.init(document.getElementById('main'));
+    var dataZong = [[${mechData.get(3)}]];
+    for (var i = 0; i < 100; i++) {
+        console.log(dataZong[i][0])
+    }
+    // console.log("数据：" + dataList);
+    // 指定图表的配置项和数据
+    var option = {
+        // title: {
+        //     text: '弹性模量'
+        // },
+        tooltip: {},
+        // legend: {
+        //     data:['销量']
+        // },
+        xAxis: {
+            name: 'Gpa'
+        },
+        yAxis: {
+            name: '力学模量面投影(GPa)'
+        },
+        dataZoom: [
+            {
+                type: 'inside',
+                xAxisIndex: [0],
+                start: 0,
+                end: 100
+            },
+            {
+                type: 'inside',
+                yAxisIndex: [0],
+                start: 0,
+                end: 100
+            }
+        ],
+        series: [{
+            type: 'line',
+            smooth: true,
+            data: dataZong
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+
+
 
 </html>
