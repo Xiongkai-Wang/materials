@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 /**
  * @Author: Liang
  * @Description:
@@ -870,10 +871,38 @@ public class ForeController {
         mv.addObject("type",CalType);
 
         // wxk 2021.01.13
-        String pic1 = "cache/Bulk_modulus_xyz.dat";
-        String pic2 = "cache/Young_modulus_xyz.dat";
+        String file1 = "cache/Bulk_modulus_xyz.dat";
+        String file2 = "cache/Young_modulus_xyz.dat";
+        try (LineNumberReader lineNumberReader = new LineNumberReader(new FileReader(file1))){
+            lineNumberReader.skip(Long.MAX_VALUE);
+            int lineNumber = lineNumberReader.getLineNumber();
+            // return lineNumber + 1; //实际上是读取换行符数量 , 所以需要+1
 
-
+            //Float[][] bulk = new Float[lineNumber+1][3];
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file1)));
+            /*for (int i=0; i<lineNumber+1; i++) {
+                for (int j=0; j<3; j++) {
+                    String[] temp = reader.readLine().split("\\s+");
+                    System.out.println(temp);
+                    bulk[i][j] = Float.parseFloat(temp[j]);
+                    //System.out.println(bulk[i][j]);
+                }
+            }*/
+            ArrayList<Float[]> bulk = new ArrayList<>();
+            while (reader.readLine() != null) {
+                String[] temp = reader.readLine().split("\\s+");
+                Float[] row = new Float[3];
+                for (int j=0; j<3; j++) {
+                    Float num = Float.parseFloat(temp[j]);
+                    row[j] = num;
+                }
+                bulk.add(row);
+            }
+            mv.addObject("bulk", bulk);
+        } catch (IOException e) {
+           e.printStackTrace();
+        }
+        //System.out.println(mv);
         return mv;
     }
 

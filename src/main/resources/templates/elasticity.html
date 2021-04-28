@@ -5,7 +5,13 @@
     <title>弹性模量</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <script type="text/javascript" src="JSmol.full.js"></script>
+    <script src="js/echarts.min.js"></script>
+    <script src="js/echarts-gl.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
     <script type="text/javascript">window.NREUM || (NREUM = {}), __nr_require = function (e, n, t) {
+        import echarts from 'echarts';
+        import 'echarts-gl';
         function r(t) {
             if (!n[t]) {
                 var o = n[t] = {exports: {}};
@@ -613,56 +619,32 @@
 <!--<script src="https://use.fontawesome.com/fd3b9caec8.js"></script>-->
 
 
-<!--<div id="wxk" style = "width: 550px;height:600px;"></div>-->
+<div id="wxk" style = "width: 550px;height:600px;"></div>
 
 
 </body>
 
 <script th:inline="javascript">
+    // import 'echarts-gl';
     // 基于准备好的dom，初始化echarts实例
     console.log("进入JS");
     var myChart = echarts.init(document.getElementById('wxk'));
-    var datawxk = [[${mechData.get(3)}]];
+    var bulk = [[${bulk}]];
     for (var i = 0; i < 100; i++) {
-        console.log(dataZong[i][0])
+        console.log(bulk[i][0])
     }
     // console.log("数据：" + dataList);
     // 指定图表的配置项和数据
     var option = {
-        // title: {
-        //     text: '弹性模量'
-        // },
-        tooltip: {},
-        // legend: {
-        //     data:['销量']
-        // },
-        xAxis: {
-            name: 'Gpa'
-        },
-        yAxis: {
-            name: '力学模量面3D投影(GPa)'
-        },
-        dataZoom: [
-            {
-                type: 'inside',
-                xAxisIndex: [0],
-                start: 0,
-                end: 100
-            },
-            {
-                type: 'inside',
-                yAxisIndex: [0],
-                start: 0,
-                end: 100
-            }
-        ],
+        grid3D: {},
+        xAxis3D: {},
+        yAxis3D: {},
+        zAxis3D: {},
         series: [{
-            type: 'line',
-            smooth: true,
-            data: datawxk
+            type: 'surface',
+            data: bulk
         }]
-    };
-
+    }
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
 </script>
