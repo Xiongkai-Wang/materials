@@ -5,13 +5,12 @@
     <title>弹性模量</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <script type="text/javascript" src="JSmol.full.js"></script>
-    <script src="js/echarts.min.js"></script>
-    <script src="js/echarts-gl.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+<!--    <script src="js/echarts.min.js"></script>import * as echarts from 'echarts';
+import 'echarts-gl';-->
+<!--    <script src="js/echarts-gl.min.js"></script>-->
+
     <script type="text/javascript">window.NREUM || (NREUM = {}), __nr_require = function (e, n, t) {
-        import echarts from 'echarts';
-        import 'echarts-gl';
+
         function r(t) {
             if (!n[t]) {
                 var o = n[t] = {exports: {}};
@@ -620,9 +619,37 @@
 
 
 <div id="wxk" style = "width: 550px;height:600px;"></div>
+<div id="young-wxk" style = "width: 550px;height:600px;"></div>
 
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+
+<script th:inline="javascript">
+    // import 'echarts-gl';
+    // 基于准备好的dom，初始化echarts实例
+    console.log("进入JS");
+    var myChart = echarts.init(document.getElementById('young-wxk'));
+    var young = [[${young}]];
+    for (var i = 0; i < 100; i++) {
+        console.log(young[i][0])
+    }
+    // console.log("数据：" + dataList);
+    // 指定图表的配置项和数据
+    var option = {
+        grid3D: {},
+        xAxis3D: {},
+        yAxis3D: {},
+        zAxis3D: {},
+        series: [{
+            type: 'surface',
+            data: young
+        }]
+    }
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
 
 <script th:inline="javascript">
     // import 'echarts-gl';
