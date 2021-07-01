@@ -1,0 +1,22 @@
+general
+ SYSTEM = Al_225
+ ENCUT = 600
+ ISTART = 1 ; ICHARG = 1 ;
+ NSW = 0  ; IBRION = -1 ;  ! Total number of steps
+ ISIF = 2 ! The stress tensor will be computed
+#scan_rVV10
+ GGA = PE
+ EDIFF = 1E-8
+ NELMIN = 6
+ NELM = 200
+ ISMEAR = -1 ; SIGMA = 0.1 ;
+ NFREE = 6 
+ PREC = Accurate
+ NBANDS = 24
+ IALGO = 38
+ ISPIN = 2
+# dos: 
+ NEDOS = 5000
+ EMIN = -25.0 ; EMAX = 25 ;
+ LORBIT = 11
+ NPAR = 4

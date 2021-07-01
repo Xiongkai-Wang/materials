@@ -528,6 +528,13 @@
 <!-- Manged at https://cdn.fontawesome.com by dwinston-->
 <script src="https://use.fontawesome.com/fd3b9caec8.js"></script>
 
+<div class="input-group" align="center">
+    <input id="vasp" type="text" class="form-control" placeholder="File Uploading">
+    <span class="input-group-btn">
+        <button class="btn btn-default" type="button" onclick="location.href='/vaspkit?name='+$('#materialName').val()">Vaspkit</button>
+    </span>
+</div><!-- /input-group -->
+
 </body>
 <!--电子能带结构图-->
 <script th:inline="javascript">

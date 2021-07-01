@@ -832,6 +832,39 @@ public class ForeController {
         return mv;
     }
 
+
+
+    @RequestMapping("/vaspkit")
+    public ModelAndView vaspkit(@RequestParam(value = "id",required = false) String id,@RequestParam(value = "type",required = false,defaultValue = "PBE")String CalType) {
+        ModelAndView mv = new ModelAndView("/vaspkit");
+
+//        BufferedReader br = null;
+//        try {
+//            String cmd1 = "Chmod +x vaspkit";
+//            String cmd2 = "./vaspkit 11";
+//            String cmd3 = "./vaspkit 111";
+//            String cmd[] = {cmd1, cmd2, cmd3};
+//            // 执行dos命令并获取输出结果
+//            Process proc = Runtime.getRuntime().exec(cmd);
+//            br = new BufferedReader(new InputStreamReader(proc.getInputStream(), "GBK"));
+//        } catch (Exception ex){
+//            ex.printStackTrace();
+//        }
+        String materialName = " ";
+        // 能带密度图
+        String Path = "vasp/band.dat";
+        List<float[][]> data_band = chartService.getBandData(Path);
+        // 总态密度
+        String pathPDOS = "vasp/pdos.dat";
+        List<float[][]> dataPDOS = chartService.getFenData(pathPDOS);
+
+        mv.addObject("data_band", data_band);
+        mv.addObject("dataPDOS", dataPDOS);
+        mv.addObject("materialName", materialName);
+
+        return  mv;
+    }
+
     @RequestMapping("/phonon")
     public ModelAndView phonon(@RequestParam(value = "id") String id,@RequestParam(value = "type",required = false,defaultValue = "PBE")String CalType) {
         ModelAndView mv = new ModelAndView("/phonon");

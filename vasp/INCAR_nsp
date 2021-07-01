@@ -1,0 +1,16 @@
+general
+ SYSTEM = Al_225
+ ENCUT = 600
+ ISTART = 0 ; ICHARG = 2 ;
+ NSW = 0  ; IBRION = -1 ;  ! Total number of steps
+ ISIF = 2
+#PBE
+ GGA= PE 
+ NELM = 100
+ NELMIN = 6
+ EDIFF = 1E-6
+ ISMEAR = -1 ; SIGMA = 0.1 ;
+ NFREE = 6 
+ PREC = Accurate
+ IALGO = 38
+ NPAR = 4
